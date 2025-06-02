@@ -71,7 +71,20 @@
         Access Token:<br>
         <span th:text="${accessToken}"></span>
     </div>
-    <a href="/logout" class="logout">Logout</a>
+    <!-- Add this inside the <div class="card"> block, just before the logout button -->
+
+    <div>
+        <a href="/admin" class="logout" style="background-color: #4CAF50; margin-top: 20px;">
+            Admin Panel
+        </a>
+    </div>
+    <!--    <a href="/logout" class="logout">Logout</a>-->
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logout">
+            Logout
+        </button>
+    </form>
+
 </div>
 </body>
 </html>

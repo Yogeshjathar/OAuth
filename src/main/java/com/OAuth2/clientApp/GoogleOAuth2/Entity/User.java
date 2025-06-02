@@ -17,6 +17,7 @@ public class User {
 
     private String provider; // e.g., "google"
 
+    private String role;
     // Constructors, Getters, Setters
 
     public void setId(Long id) {
@@ -33,5 +34,13 @@ public class User {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -1,0 +1,41 @@
+spring:
+    application:
+        name: GoogleOAuth2
+
+    config:
+        import: "optional:classpath:application-secrets.yml"
+
+    #   MySQL Database Configuration
+    datasource:
+        url: jdbc:mysql://localhost:3306/userDB
+        username: root
+        password: 2002
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        scope:
+                            - email
+                            - profile
+                    github:
+                        scope: read:user
+                        redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+                        client-name: GitHub
+
+                provider:
+                    google:
+                        authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+                        token-uri: https://oauth2.googleapis.com/token
+                        user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+                    github:
+                        authorization-uri: https://github.com/login/oauth/authorize
+                        token-uri: https://github.com/login/oauth/access_token
+                        user-info-uri: https://api.github.com/user
+                        user-name-attribute: login
