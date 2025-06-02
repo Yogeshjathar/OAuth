@@ -26,17 +26,23 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/dashboard").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/dashboard","/api/**").authenticated()
                         .anyRequest().permitAll()
                 )
+//                .csrf(csrf -> csrf.disable())
                 .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
                         .defaultSuccessUrl("/dashboard", true) // Redirect to dashboard after login
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService) // Plug in DB logic
                         )
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/").permitAll()
+                        .logoutSuccessUrl("/login").permitAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/access-denied") // 🔥 custom access denied page
                 );
 
         return http.build();
