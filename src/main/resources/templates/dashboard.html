@@ -2,12 +2,76 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        p {
+            margin: 6px 0;
+            color: #555;
+        }
+
+        .token {
+            word-break: break-all;
+            font-size: 12px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .logout {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff5252;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .logout:hover {
+            background-color: #e04848;
+        }
+    </style>
 </head>
 <body>
-<h1>Dashboard</h1>
-<h1>Hello <span th:text="${name}"></span></h1>
-<p>Name: <span th:text="${name}"></span></p>
-<p>Email: <span th:text="${email}"></span></p>
-<a href="/logout">Logout</a>
+<div class="card">
+    <img th:src="${picture}" class="profile-pic" alt="Profile Picture"/>
+    <h1>Hello, <span th:text="${#strings.arraySplit(name, ' ')[0]}"></span> 👋</h1>
+    <p>Email: <span th:text="${email}"></span></p>
+    <div class="token">
+        Access Token:<br>
+        <span th:text="${accessToken}"></span>
+    </div>
+    <a href="/logout" class="logout">Logout</a>
+</div>
 </body>
 </html>

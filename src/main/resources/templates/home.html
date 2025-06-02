@@ -1,10 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home</title>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 360px;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .google-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #4285F4;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .google-btn:hover {
+            background-color: #3367d6;
+        }
+
+        .google-icon {
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .google-icon img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
-<h1>Welcome to the Home Page</h1>
-<p><a href="/oauth2/authorization/google">Login with Google</a></p>
+<div class="login-container">
+    <h2>Login to Your Account</h2>
+    <a href="/oauth2/authorization/google" class="google-btn">
+            <span class="google-icon">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
+            </span>
+        Continue with Google
+    </a>
+</div>
 </body>
 </html>
