@@ -38,6 +38,9 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService) // Plug in DB logic
                         )
                 )
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt() // Enable JWT token validation for resource server
+                )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login").permitAll()
                 )
