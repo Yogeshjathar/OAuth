@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: springboot-app
+  template:
+    metadata:
+      labels:
+        app: springboot-app
+    spec:
+      containers:
+        - name: springboot-app
+          image: springboot-app:v7
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            # OAuth Google Secrets from Kubernetes Secret
+            - name: OAUTH_GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: OAUTH_GOOGLE_CLIENT_ID
+            - name: OAUTH_GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: OAUTH_GOOGLE_CLIENT_SECRET
+
+            # OAuth GitHub Secrets from Kubernetes Secret
+            - name: OAUTH_GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: OAUTH_GITHUB_CLIENT_ID
+            - name: OAUTH_GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: OAUTH_GITHUB_CLIENT_SECRET
+
+            - name: SPRING_APPLICATION_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: SPRING_APPLICATION_NAME
+
+            # Database configuration
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: SPRING_DATASOURCE_URL
+
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: SPRING_DATASOURCE_USERNAME
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SPRING_DATASOURCE_PASSWORD
+
+            # OAuth Provider URIs (optional)
+            - name: GOOGLE_AUTH_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GOOGLE_AUTH_URI
+            - name: GOOGLE_TOKEN_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GOOGLE_TOKEN_URI
+            - name: GOOGLE_USER_INFO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GOOGLE_USER_INFO_URI
+
+            - name: GITHUB_AUTH_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GITHUB_AUTH_URI
+            - name: GITHUB_TOKEN_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GITHUB_TOKEN_URI
+            - name: GITHUB_USER_INFO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GITHUB_USER_INFO_URI
+            - name: GITHUB_USER_NAME_ATTRIBUTE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GITHUB_USER_NAME_ATTRIBUTE

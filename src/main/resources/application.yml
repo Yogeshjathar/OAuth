@@ -3,14 +3,15 @@ spring:
         name: GoogleOAuth2
 
     config:
-        import: "optional:classpath:application-secrets.yml"
+        import: optional:classpath:application-secrets.yml
 
-    #   MySQL Database Configuration
+    # MySQL Database Configuration
     datasource:
-        url: jdbc:mysql://localhost:3306/userDB
-        username: root
-        password: 2002
+        url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/userDb}
+        username: ${SPRING_DATASOURCE_USERNAME:root}
+        password: ${SPRING_DATASOURCE_PASSWORD:2002}
         driver-class-name: com.mysql.cj.jdbc.Driver
+
     jpa:
         hibernate:
             ddl-auto: update
@@ -21,24 +22,30 @@ spring:
             client:
                 registration:
                     google:
+                        client-id: ${OAUTH_GOOGLE_CLIENT_ID}
+                        client-secret: ${OAUTH_GOOGLE_CLIENT_SECRET}
                         scope:
                             - email
                             - profile
+
                     github:
+                        client-id: ${OAUTH_GITHUB_CLIENT_ID}
+                        client-secret: ${OAUTH_GITHUB_CLIENT_SECRET}
                         scope: read:user
                         redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
                         client-name: GitHub
 
                 provider:
                     google:
-                        authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
-                        token-uri: https://oauth2.googleapis.com/token
-                        user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+                        authorization-uri: ${GOOGLE_AUTH_URI}
+                        token-uri: ${GOOGLE_TOKEN_URI}
+                        user-info-uri: ${GOOGLE_USER_INFO_URI}
+
                     github:
-                        authorization-uri: https://github.com/login/oauth/authorize
-                        token-uri: https://github.com/login/oauth/access_token
-                        user-info-uri: https://api.github.com/user
-                        user-name-attribute: login
+                        authorization-uri: ${GITHUB_AUTH_URI}
+                        token-uri: ${GITHUB_TOKEN_URI}
+                        user-info-uri: ${GITHUB_USER_INFO_URI}
+                        user-name-attribute: ${GITHUB_USER_NAME_ATTRIBUTE}
 
             resourceserver:
                 jwt:

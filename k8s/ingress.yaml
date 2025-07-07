@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: springboot-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: springboot.local
+      http:
+        paths:
+          - path: /service-a(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: springboot-demo-service
+                port:
+                  number: 8080
+          - path: /service-b(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: springboot-service
+                port:
+                  number: 8080

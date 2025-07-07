@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-only-springboot-app
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: springboot           # This selects Service A's pods
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: springboot-app   # This allows only Service B to access

@@ -34,3 +34,5 @@ build/
 
 # Ignore Spring Boot config
 application-secrets.yml
+app-config.yaml
+app-secrets.yaml

@@ -1,0 +1,4 @@
+runtime: java21
+env: flex
+instance_class: F1
+entrypoint: java -jar target/GoogleOAuth2-0.0.1-SNAPSHOT.jar
